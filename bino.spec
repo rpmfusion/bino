@@ -1,6 +1,6 @@
 Name: bino
 Version: 1.2.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: 3D video player
 Group: System Environment/Base
 License: GPLv3+
@@ -67,6 +67,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Tue Jun 26 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.2.1-4
+- Rebuilt for FFmpeg
+
 * Thu Mar  1 2012 Jaroslav Škarvada <jskarvad@redhat.com> - 1.2.1-3
 - Unbundled oxygen icons
 
