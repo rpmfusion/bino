@@ -1,19 +1,15 @@
 Name: bino
-Version: 1.2.1
-Release: 3%{?dist}
+Version: 1.4.1
+Release: 1%{?dist}
 Summary: 3D video player
 Group: System Environment/Base
 License: GPLv3+
 URL: http://bino3d.org
 Source0: http://download.savannah.nongnu.org/releases-noredirect/bino/%{name}-%{version}.tar.xz
-# Fix for implicit DSO linkage, patch accepted by upstream
-Patch1: bino-1.2.1-ld-fix.patch
-# Unbundle oxygen icons
-Patch2: bino-1.2.1-unbundle-icons.patch
 Requires(post): /sbin/install-info
 Requires(preun): /sbin/install-info
 BuildRequires: ffmpeg-devel glew-devel libass-devel openal-devel qt-devel
-BuildRequires: gettext texinfo oxygen-icon-theme
+BuildRequires: gettext texinfo oxygen-icon-theme desktop-file-utils
 
 %description
 Bino is a 3D video player. It supports stereoscopic 3D video with a wide
@@ -25,14 +21,8 @@ multi-projector setups.
 %setup -q
 
 # Removal of unneeded stuff
-rm -rf pkg/macosx/* pkg/w32
+rm -rf pkg/macosx/*
 touch pkg/macosx/Info.plist.in
-
-# Removal of bundled oxygen-icons
-rm -rf src/icons
-
-%patch1 -p1 -b .ld-fix
-%patch2 -p1 -b .unbundle-icons
 
 %build
 %configure
@@ -41,9 +31,13 @@ make %{?_smp_mflags}
 %install
 make install DESTDIR=%{buildroot} mandir=%{_mandir}
 rm -f %{buildroot}%{_infodir}/dir
+
 mkdir _tmpdoc
 mv %{buildroot}%{_datadir}/doc/%{name}/* _tmpdoc/
 rm -rf %{buildroot}%{_datadir}/doc
+
+desktop-file-validate %{buildroot}%{_datadir}/applications/bino.desktop
+
 %find_lang %{name}
 
 %post
@@ -53,10 +47,21 @@ rm -rf %{buildroot}%{_datadir}/doc
     %{_infodir}/%{name}.info \
     %{_infodir}/dir 2>/dev/null || :
 
+/bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
+
 %preun
 if [ $1 -eq 0 ]; then
   /sbin/install-info --delete %{_infodir}/%{name}.info %{_infodir}/dir 2>/dev/null || :
 fi
+
+%postun
+if [ $1 -eq 0 ] ; then
+    /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null
+    /usr/bin/gtk-update-icon-cache -f %{_datadir}/icons/hicolor &>/dev/null || :
+fi
+
+%posttrans
+/usr/bin/gtk-update-icon-cache -f %{_datadir}/icons/hicolor &>/dev/null || :
 
 %files -f %{name}.lang
 %doc AUTHORS COPYING ChangeLog NEWS README _tmpdoc/*
@@ -67,6 +72,14 @@ fi
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Thu Oct 18 2012 Jaroslav Škarvada <jskarvad@redhat.com> - 1.4.1-1
+- New version
+- Dropped ld-fix patch (upstreamed)
+- Dropped unbundle-icons patch (not needed)
+
+* Tue Jun 26 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.2.1-4
+- Rebuilt for FFmpeg
+
 * Thu Mar  1 2012 Jaroslav Škarvada <jskarvad@redhat.com> - 1.2.1-3
 - Unbundled oxygen icons
 
