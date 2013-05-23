@@ -1,6 +1,6 @@
 Name: bino
-Version: 1.4.1
-Release: 3%{?dist}
+Version: 1.4.2
+Release: 1%{?dist}
 Summary: 3D video player
 Group: System Environment/Base
 License: GPLv3+
@@ -26,7 +26,9 @@ touch pkg/macosx/Info.plist.in
 
 %build
 %configure
-make %{?_smp_mflags}
+# -zmuldefs is dirty workaround for rhbz#966649,
+# it can be dropped when it get fixed
+make %{?_smp_mflags} LDFLAGS="-zmuldefs"
 
 %install
 make install DESTDIR=%{buildroot} mandir=%{_mandir}
@@ -72,6 +74,11 @@ fi
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Thu May 23 2013 Jaroslav Škarvada <jskarvad@redhat.com> - 1.4.2-1
+- New version
+- Workarounded FTBFS due to glew fedora bug rhbz#966649
+  Resolves: rfbz#2774
+
 * Sun Apr 28 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.4.1-3
 - https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
 
