@@ -1,6 +1,6 @@
 Name: bino
 Version: 1.4.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: 3D video player
 Group: System Environment/Base
 License: GPLv3+
@@ -74,6 +74,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Sun May 26 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.4.2-2
+- Rebuilt for x264/FFmpeg
+
 * Thu May 23 2013 Jaroslav Škarvada <jskarvad@redhat.com> - 1.4.2-1
 - New version
 - Workarounded FTBFS due to glew fedora bug rhbz#966649
