@@ -1,6 +1,6 @@
 Name: bino
-Version: 1.4.2
-Release: 4%{?dist}
+Version: 1.4.4
+Release: 1%{?dist}
 Summary: 3D video player
 Group: System Environment/Base
 License: GPLv3+
@@ -74,6 +74,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Wed Nov 27 2013 Jaroslav Škarvada <jskarvad@redhat.com> - 1.4.4-1
+- New version
+
 * Wed Oct 02 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.4.2-4
 - Rebuilt
 
