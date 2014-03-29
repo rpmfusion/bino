@@ -1,6 +1,6 @@
 Name: bino
 Version: 1.4.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: 3D video player
 Group: System Environment/Base
 License: GPLv3+
@@ -74,6 +74,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Sat Mar 29 2014 Sérgio Basto <sergio@serjux.com> - 1.4.4-2
+- Rebuilt for ffmpeg-2.2
+
 * Wed Nov 27 2013 Jaroslav Škarvada <jskarvad@redhat.com> - 1.4.4-1
 - New version
 
