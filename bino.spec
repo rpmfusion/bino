@@ -1,15 +1,26 @@
 Name: bino
-Version: 1.4.4
-Release: 6%{?dist}
+Version: 1.6.3
+Release: 1%{?dist}
 Summary: 3D video player
 Group: System Environment/Base
 License: GPLv3+
 URL: http://bino3d.org
 Source0: http://download.savannah.nongnu.org/releases-noredirect/bino/%{name}-%{version}.tar.xz
+Patch0:  ffmpeg_2.9.patch
+
 Requires(post): /sbin/install-info
 Requires(preun): /sbin/install-info
-BuildRequires: ffmpeg-devel glew-devel libass-devel openal-devel qt-devel
-BuildRequires: gettext texinfo oxygen-icon-theme desktop-file-utils
+
+BuildRequires: ffmpeg-devel
+BuildRequires: glew-devel
+BuildRequires: libass-devel
+BuildRequires: openal-devel
+BuildRequires: qt5-qtbase-devel
+BuildRequires: libquadmath-devel
+BuildRequires: gettext
+BuildRequires: texinfo
+BuildRequires: oxygen-icon-theme
+BuildRequires: desktop-file-utils
 
 %description
 Bino is a 3D video player. It supports stereoscopic 3D video with a wide
@@ -19,19 +30,18 @@ multi-projector setups.
 
 %prep
 %setup -q
+%patch0 -p1
 
 # Removal of unneeded stuff
 rm -rf pkg/macosx/*
 touch pkg/macosx/Info.plist.in
 
 %build
-%configure
-# -zmuldefs is dirty workaround for rhbz#966649,
-# it can be dropped when it get fixed
-make %{?_smp_mflags} LDFLAGS="-zmuldefs"
+%configure --with-qt-version=5
+%{make_build}
 
 %install
-make install DESTDIR=%{buildroot} mandir=%{_mandir}
+%{make_install}
 rm -f %{buildroot}%{_infodir}/dir
 
 mkdir _tmpdoc
@@ -66,14 +76,20 @@ fi
 /usr/bin/gtk-update-icon-cache -f %{_datadir}/icons/hicolor &>/dev/null || :
 
 %files -f %{name}.lang
-%doc AUTHORS COPYING ChangeLog NEWS README _tmpdoc/*
+%doc AUTHORS ChangeLog NEWS README _tmpdoc/*
+%license COPYING
 %{_bindir}/bino
 %{_infodir}/*
 %{_mandir}/man1/*
-%{_datadir}/applications/*
+%{_datadir}/applications/bino.desktop
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Sat Jul 09 2016 Leigh Scott <leigh123linux@googlemail.com> - 1.6.3-1
+- update to 1.6.3 release
+- patch for ffmpeg-3.0
+- switch to qt5
+
 * Sun Oct 19 2014 Sérgio Basto <sergio@serjux.com> - 1.4.4-6
 - Rebuilt for FFmpeg 2.4.3
 
