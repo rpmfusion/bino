@@ -8,6 +8,9 @@ URL: http://bino3d.org
 Source0: http://download.savannah.nongnu.org/releases-noredirect/bino/%{name}-%{version}.tar.xz
 Patch0:  ffmpeg_2.9.patch
 
+# No libquadmath-devel on ARM
+ExcludeArch: armhfp
+
 Requires(post): /sbin/install-info
 Requires(preun): /sbin/install-info
 
@@ -89,6 +92,7 @@ fi
 - update to 1.6.3 release
 - patch for ffmpeg-3.0
 - switch to qt5
+- add exclude armhfp
 
 * Sun Oct 19 2014 Sérgio Basto <sergio@serjux.com> - 1.4.4-6
 - Rebuilt for FFmpeg 2.4.3
