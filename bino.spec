@@ -9,7 +9,7 @@ Source0: http://download.savannah.nongnu.org/releases-noredirect/bino/%{name}-%{
 Patch0:  ffmpeg_2.9.patch
 
 # No libquadmath-devel on ARM
-ExcludeArch: armhfp
+ExcludeArch: armhfp armv7hl
 
 Requires(post): /sbin/install-info
 Requires(preun): /sbin/install-info
