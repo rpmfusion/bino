@@ -1,6 +1,6 @@
 Name: bino
 Version: 1.6.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: 3D video player
 Group: System Environment/Base
 License: GPLv3+
@@ -88,6 +88,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Sat Jul 30 2016 Julian Sikorski <belegdol@fedoraproject.org> - 1.6.3-2
+- Rebuilt for ffmpeg-3.1.1
+
 * Sat Jul 09 2016 Leigh Scott <leigh123linux@googlemail.com> - 1.6.3-1
 - update to 1.6.3 release
 - patch for ffmpeg-3.0
