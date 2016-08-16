@@ -1,18 +1,19 @@
-Name: bino
+Name:    bino
 Version: 1.6.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: 3D video player
-Group: System Environment/Base
+Group:   System Environment/Base
 License: GPLv3+
-URL: http://bino3d.org
+URL:     http://bino3d.org
 Source0: http://download.savannah.nongnu.org/releases-noredirect/bino/%{name}-%{version}.tar.xz
 Patch0:  ffmpeg_2.9.patch
 
 # No libquadmath-devel on ARM
 ExcludeArch: armhfp armv7hl
 
-Requires(post): /sbin/install-info
+Requires(post):  /sbin/install-info
 Requires(preun): /sbin/install-info
+Requires:        hicolor-icon-theme
 
 BuildRequires: ffmpeg-devel
 BuildRequires: glew-devel
@@ -32,8 +33,7 @@ and it can be used for powerwalls, virtual reality installations and other
 multi-projector setups.
 
 %prep
-%setup -q
-%patch0 -p1
+%autosetup
 
 # Removal of unneeded stuff
 rm -rf pkg/macosx/*
@@ -63,6 +63,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/bino.desktop
     %{_infodir}/dir 2>/dev/null || :
 
 /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
+/usr/bin/update-desktop-database &> /dev/null || :
 
 %preun
 if [ $1 -eq 0 ]; then
@@ -73,6 +74,7 @@ fi
 if [ $1 -eq 0 ] ; then
     /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null
     /usr/bin/gtk-update-icon-cache -f %{_datadir}/icons/hicolor &>/dev/null || :
+    /usr/bin/update-desktop-database &> /dev/null || :
 fi
 
 %posttrans
@@ -88,6 +90,10 @@ fi
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Tue Aug 16 2016 Leigh Scott <leigh123linux@googlemail.com> - 1.6.3-3
+- Add requires hicolor-icon-theme (rfbz#4191)
+- Add mime scriptlets
+
 * Sat Jul 30 2016 Julian Sikorski <belegdol@fedoraproject.org> - 1.6.3-2
 - Rebuilt for ffmpeg-3.1.1
 
