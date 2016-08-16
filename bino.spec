@@ -33,7 +33,7 @@ and it can be used for powerwalls, virtual reality installations and other
 multi-projector setups.
 
 %prep
-%autosetup
+%autosetup -p1
 
 # Removal of unneeded stuff
 rm -rf pkg/macosx/*
