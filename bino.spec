@@ -1,12 +1,11 @@
 Name:    bino
-Version: 1.6.3
-Release: 3%{?dist}
+Version: 1.6.4
+Release: 1%{?dist}
 Summary: 3D video player
 Group:   System Environment/Base
 License: GPLv3+
 URL:     http://bino3d.org
 Source0: http://download.savannah.nongnu.org/releases-noredirect/bino/%{name}-%{version}.tar.xz
-Patch0:  ffmpeg_2.9.patch
 
 # No libquadmath-devel on ARM
 ExcludeArch: armhfp armv7hl
@@ -90,6 +89,11 @@ fi
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Mon Dec  5 2016 Jaroslav Škarvada <jskarvad@redhat.com> - 1.6.4-1
+- New version
+  Resolves: rfbz#4366
+- Dropped ffmpeg_2.9 patch (upstreamed)
+
 * Tue Aug 16 2016 Leigh Scott <leigh123linux@googlemail.com> - 1.6.3-3
 - Add requires hicolor-icon-theme (rfbz#4191)
 - Add mime scriptlets
