@@ -1,6 +1,6 @@
 Name:    bino
 Version: 1.6.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: 3D video player
 Group:   System Environment/Base
 License: GPLv3+
@@ -89,6 +89,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Sat Mar 18 2017 RPM Fusion Release Engineering <kwizart@rpmfusion.org> - 1.6.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
+
 * Mon Dec  5 2016 Jaroslav Škarvada <jskarvad@redhat.com> - 1.6.4-1
 - New version
   Resolves: rfbz#4366
