@@ -15,7 +15,7 @@ Requires(post):  /sbin/install-info
 Requires(preun): /sbin/install-info
 Requires:        hicolor-icon-theme
 
-BuildRequires: autoconf
+BuildRequires: automake
 BuildRequires: ffmpeg-devel
 BuildRequires: glew-devel
 BuildRequires: libass-devel
