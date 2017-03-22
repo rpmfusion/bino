@@ -22,7 +22,7 @@ BuildRequires: libass-devel
 BuildRequires: openal-devel
 BuildRequires: qt5-qtbase-devel
 BuildRequires: libquadmath-devel
-BuildRequires: gettext
+BuildRequires: gettext-devel
 BuildRequires: texinfo
 BuildRequires: oxygen-icon-theme
 BuildRequires: desktop-file-utils
@@ -36,6 +36,7 @@ multi-projector setups.
 %prep
 %autosetup -p1
 # Needed for revert_glewmx.patch
+mkdir m4
 autoreconf -fiv
 
 # Removal of unneeded stuff
