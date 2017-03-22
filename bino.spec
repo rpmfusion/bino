@@ -1,11 +1,12 @@
 Name:    bino
-Version: 1.6.4
-Release: 2%{?dist}
+Version: 1.6.5
+Release: 1%{?dist}
 Summary: 3D video player
 Group:   System Environment/Base
 License: GPLv3+
 URL:     http://bino3d.org
-Source0: http://download.savannah.nongnu.org/releases-noredirect/bino/%{name}-%{version}.tar.xz
+Source0: http://download.savannah.nongnu.org/releases/bino/%{name}-%{version}.tar.xz
+Patch0:  revert_glewmx.patch
 
 # No libquadmath-devel on ARM
 ExcludeArch: armhfp armv7hl
@@ -33,6 +34,8 @@ multi-projector setups.
 
 %prep
 %autosetup -p1
+# Need for revert_glewmx.patch
+autoreconf -fiv
 
 # Removal of unneeded stuff
 rm -rf pkg/macosx/*
@@ -89,6 +92,10 @@ fi
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Wed Mar 22 2017 Leigh Scott <leigh123linux@googlemail.com> - 1.6.5-1
+- New version
+- Patch for glew-2.0 changes
+
 * Sat Mar 18 2017 RPM Fusion Release Engineering <kwizart@rpmfusion.org> - 1.6.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
 
