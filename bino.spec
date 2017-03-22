@@ -8,8 +8,8 @@ URL:     http://bino3d.org
 Source0: http://download.savannah.nongnu.org/releases/bino/%{name}-%{version}.tar.xz
 Patch0:  revert_glewmx.patch
 
-# No libquadmath-devel on ARM
-ExcludeArch: armhfp armv7hl
+# No libquadmath-devel on any other arch apart from x86
+ExclusiveArch:  i686 x86_64
 
 Requires(post):  /sbin/install-info
 Requires(preun): /sbin/install-info
@@ -97,6 +97,7 @@ fi
 * Wed Mar 22 2017 Leigh Scott <leigh123linux@googlemail.com> - 1.6.5-1
 - New version
 - Patch for glew-2.0 changes
+- Build is x86 only
 
 * Sat Mar 18 2017 RPM Fusion Release Engineering <kwizart@rpmfusion.org> - 1.6.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
