@@ -15,6 +15,7 @@ Requires(post):  /sbin/install-info
 Requires(preun): /sbin/install-info
 Requires:        hicolor-icon-theme
 
+BuildRequires: autoconf
 BuildRequires: ffmpeg-devel
 BuildRequires: glew-devel
 BuildRequires: libass-devel
@@ -34,7 +35,7 @@ multi-projector setups.
 
 %prep
 %autosetup -p1
-# Need for revert_glewmx.patch
+# Needed for revert_glewmx.patch
 autoreconf -fiv
 
 # Removal of unneeded stuff
