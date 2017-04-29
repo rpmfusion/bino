@@ -1,6 +1,6 @@
 Name:    bino
 Version: 1.6.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: 3D video player
 Group:   System Environment/Base
 License: GPLv3+
@@ -94,6 +94,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Sat Apr 29 2017 Leigh Scott <leigh123linux@googlemail.com> - 1.6.5-2
+- Rebuild for ffmpeg update
+
 * Wed Mar 22 2017 Leigh Scott <leigh123linux@googlemail.com> - 1.6.5-1
 - New version
 - Patch for glew-2.0 changes
