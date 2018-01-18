@@ -1,12 +1,12 @@
 Name:    bino
-Version: 1.6.5
-Release: 4%{?dist}
+Version: 1.6.6
+Release: 1%{?dist}
 Summary: 3D video player
 Group:   System Environment/Base
 License: GPLv3+
 URL:     http://bino3d.org
 Source0: http://download.savannah.nongnu.org/releases/bino/%{name}-%{version}.tar.xz
-Patch0:  revert_glewmx.patch
+Patch0:  ffmpeg35_buildfix.patch
 
 # No libquadmath-devel on any other arch apart from x86
 ExclusiveArch:  i686 x86_64
@@ -94,6 +94,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Thu Jan 18 2018 Leigh Scott <leigh123linux@googlemail.com> - 1.6.6-1
+- New version
+
 * Thu Jan 18 2018 Leigh Scott <leigh123linux@googlemail.com> - 1.6.5-4
 - Rebuilt for ffmpeg-3.5 git
 
