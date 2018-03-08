@@ -1,6 +1,6 @@
 Name:    bino
 Version: 1.6.6
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: 3D video player
 Group:   System Environment/Base
 License: GPLv3+
@@ -94,6 +94,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Thu Mar 08 2018 RPM Fusion Release Engineering <leigh123linux@googlemail.com> - 1.6.6-4
+- Rebuilt for new ffmpeg snapshot
+
 * Thu Mar 08 2018 RPM Fusion Release Engineering <leigh123linux@googlemail.com> - 1.6.6-3
 - Rebuilt for new ffmpeg snapshot
 
