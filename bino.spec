@@ -1,6 +1,6 @@
 Name:    bino
 Version: 1.6.6
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: 3D video player
 Group:   System Environment/Base
 License: GPLv3+
@@ -66,23 +66,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/bino.desktop
     %{_infodir}/%{name}.info \
     %{_infodir}/dir 2>/dev/null || :
 
-/bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
-/usr/bin/update-desktop-database &> /dev/null || :
-
 %preun
 if [ $1 -eq 0 ]; then
   /sbin/install-info --delete %{_infodir}/%{name}.info %{_infodir}/dir 2>/dev/null || :
 fi
-
-%postun
-if [ $1 -eq 0 ] ; then
-    /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null
-    /usr/bin/gtk-update-icon-cache -f %{_datadir}/icons/hicolor &>/dev/null || :
-    /usr/bin/update-desktop-database &> /dev/null || :
-fi
-
-%posttrans
-/usr/bin/gtk-update-icon-cache -f %{_datadir}/icons/hicolor &>/dev/null || :
 
 %files -f %{name}.lang
 %doc AUTHORS ChangeLog NEWS README _tmpdoc/*
@@ -94,6 +81,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Sun Jun 17 2018 Leigh Scott <leigh123linux@googlemail.com> - 1.6.6-5
+- Rebuild for new libass version
+
 * Thu Mar 08 2018 RPM Fusion Release Engineering <leigh123linux@googlemail.com> - 1.6.6-4
 - Rebuilt for new ffmpeg snapshot
 
