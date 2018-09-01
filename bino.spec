@@ -1,12 +1,11 @@
 Name:    bino
-Version: 1.6.6
-Release: 6%{?dist}
+Version: 1.6.7
+Release: 1%{?dist}
 Summary: 3D video player
 Group:   System Environment/Base
 License: GPLv3+
-URL:     http://bino3d.org
-Source0: http://download.savannah.nongnu.org/releases/bino/%{name}-%{version}.tar.xz
-Patch0:  ffmpeg35_buildfix.patch
+URL:     https://bino3d.org
+Source0: %url/releases/%{name}-%{version}.tar.xz
 
 # No libquadmath-devel on any other arch apart from x86
 ExclusiveArch:  i686 x86_64
@@ -17,6 +16,7 @@ Requires:        hicolor-icon-theme
 
 BuildRequires: automake
 BuildRequires: ffmpeg-devel
+BuildRequires: gcc-c++
 BuildRequires: glew-devel
 BuildRequires: libass-devel
 BuildRequires: openal-devel
@@ -24,7 +24,6 @@ BuildRequires: qt5-qtbase-devel
 BuildRequires: libquadmath-devel
 BuildRequires: gettext-devel
 BuildRequires: texinfo
-BuildRequires: oxygen-icon-theme
 BuildRequires: desktop-file-utils
 
 %description
@@ -35,9 +34,6 @@ multi-projector setups.
 
 %prep
 %autosetup -p1
-# Needed for revert_glewmx.patch
-mkdir m4
-autoreconf -fiv
 
 # Removal of unneeded stuff
 rm -rf pkg/macosx/*
@@ -45,14 +41,11 @@ touch pkg/macosx/Info.plist.in
 
 %build
 %configure --with-qt-version=5
-%{make_build}
+%{make_build} V=1
 
 %install
 %{make_install}
 rm -f %{buildroot}%{_infodir}/dir
-
-mkdir _tmpdoc
-mv %{buildroot}%{_datadir}/doc/%{name}/* _tmpdoc/
 rm -rf %{buildroot}%{_datadir}/doc
 
 desktop-file-validate %{buildroot}%{_datadir}/applications/bino.desktop
@@ -72,7 +65,7 @@ if [ $1 -eq 0 ]; then
 fi
 
 %files -f %{name}.lang
-%doc AUTHORS ChangeLog NEWS README _tmpdoc/*
+%doc AUTHORS ChangeLog NEWS README doc/*
 %license COPYING
 %{_bindir}/bino
 %{_infodir}/*
@@ -81,6 +74,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Sat Sep 01 2018 Leigh Scott <leigh123linux@googlemail.com> - 1.6.7-1
+- New version
+
 * Thu Jul 26 2018 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 1.6.6-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 
