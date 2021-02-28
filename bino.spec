@@ -6,6 +6,7 @@ Group:   System Environment/Base
 License: GPLv3+
 URL:     https://bino3d.org
 Source0: %url/releases/%{name}-%{version}.tar.xz
+Patch1:  bino.git-7997ad11eefe241bb85a27c50d009c99851d7b0b.patch
 
 # No libquadmath-devel on any other arch apart from x86
 ExclusiveArch:  i686 x86_64
@@ -76,6 +77,7 @@ fi
 %changelog
 * Wed Feb 03 2021 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 1.6.7-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+- Add upstream patch for GCC 11
 
 * Thu Dec 31 2020 Leigh Scott <leigh123linux@gmail.com> - 1.6.7-7
 - Rebuilt for new ffmpeg snapshot
