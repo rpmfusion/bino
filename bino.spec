@@ -1,12 +1,11 @@
 Name:    bino
-Version: 1.6.7
-Release: 10%{?dist}
+Version: 1.6.8
+Release: 1%{?dist}
 Summary: 3D video player
 Group:   System Environment/Base
 License: GPLv3+
 URL:     https://bino3d.org
 Source0: %url/releases/%{name}-%{version}.tar.xz
-Patch1:  bino.git-7997ad11eefe241bb85a27c50d009c99851d7b0b.patch
 
 # No libquadmath-devel on any other arch apart from x86
 ExclusiveArch:  i686 x86_64
@@ -42,10 +41,10 @@ touch pkg/macosx/Info.plist.in
 
 %build
 %configure --with-qt-version=5
-%{make_build} V=1
+%make_build V=1
 
 %install
-%{make_install}
+%make_install
 rm -f %{buildroot}%{_infodir}/dir
 rm -rf %{buildroot}%{_datadir}/doc
 
@@ -75,6 +74,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Mon Jan 03 2022 Sérgio Basto <sergio@serjux.com> - 1.6.8-1
+- Update bino to 1.6.8
+
 * Thu Nov 11 2021 Leigh Scott <leigh123linux@gmail.com> - 1.6.7-10
 - Rebuilt for new ffmpeg snapshot
 
