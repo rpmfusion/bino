@@ -15,7 +15,11 @@ Requires(preun): /sbin/install-info
 Requires:        hicolor-icon-theme
 
 BuildRequires: automake
+%if 0%{?fedora} && 0%{?fedora} > 35
+BuildRequires: compat-ffmpeg4-devel
+%else
 BuildRequires: ffmpeg-devel
+%endif
 BuildRequires: gcc-c++
 BuildRequires: glew-devel
 BuildRequires: libass-devel
@@ -40,6 +44,9 @@ rm -rf pkg/macosx/*
 touch pkg/macosx/Info.plist.in
 
 %build
+%if 0%{?fedora} && 0%{?fedora} > 35
+export PKG_CONFIG_PATH="%{_libdir}/compat-ffmpeg4/pkgconfig"
+%endif
 %configure --with-qt-version=5
 %make_build V=1
 
