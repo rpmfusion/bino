@@ -1,6 +1,6 @@
 Name:    bino
 Version: 1.6.8
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: 3D video player
 Group:   System Environment/Base
 License: GPLv3+
@@ -81,6 +81,10 @@ fi
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Sat Aug 06 2022 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 1.6.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild and ffmpeg
+  5.1
+
 * Wed Feb 09 2022 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 1.6.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
 
