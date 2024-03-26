@@ -1,34 +1,39 @@
 Name:    bino
-Version: 1.6.8
-Release: 5%{?dist}
+Version: 2.1
+Release: 1%{?dist}
 Summary: 3D video player
-Group:   System Environment/Base
-License: GPLv3+
+License: GPL-3.0-or-later
 URL:     https://bino3d.org
-Source0: %url/releases/%{name}-%{version}.tar.xz
+Source0: %url/releases/%{name}-%{version}.tar.gz
 
 # No libquadmath-devel on any other arch apart from x86
-ExclusiveArch:  i686 x86_64
+#ExclusiveArch:  i686 x86_64
 
-Requires(post):  /sbin/install-info
-Requires(preun): /sbin/install-info
 Requires:        hicolor-icon-theme
 
-BuildRequires: automake
-%if 0%{?fedora} && 0%{?fedora} > 35
-BuildRequires: compat-ffmpeg4-devel
-%else
-BuildRequires: ffmpeg-devel
-%endif
-BuildRequires: gcc-c++
-BuildRequires: glew-devel
-BuildRequires: libass-devel
-BuildRequires: openal-devel
-BuildRequires: qt5-qtbase-devel
-BuildRequires: libquadmath-devel
-BuildRequires: gettext-devel
-BuildRequires: texinfo
-BuildRequires: desktop-file-utils
+BuildRequires:  cmake
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6OpenGL)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6OpenGLWidgets)
+BuildRequires:  cmake(Qt6Multimedia)
+BuildRequires:  cmake(Qt6Svg)
+BuildRequires:  cmake(Qt6Linguist)
+BuildRequires:  cmake(QVR)
+BuildRequires:  pkgconfig(freetype2)
+BuildRequires:  pkgconfig(gl)
+BuildRequires:  pkgconfig(glew) >= 1.5.0
+BuildRequires:  pkgconfig(glib-2.0)
+BuildRequires:  desktop-file-utils
+BuildRequires:  ffmpeg-devel
+BuildRequires:  libappstream-glib
+BuildRequires:  gettext-devel
+BuildRequires:  gcc-c++
+BuildRequires:  pkgconfig(libass)
+BuildRequires:  pkgconfig(openal)
+BuildRequires:  pkgconfig(libpng)
+BuildRequires:  texinfo
 
 %description
 Bino is a 3D video player. It supports stereoscopic 3D video with a wide
@@ -39,48 +44,30 @@ multi-projector setups.
 %prep
 %autosetup -p1
 
-# Removal of unneeded stuff
-rm -rf pkg/macosx/*
-touch pkg/macosx/Info.plist.in
-
 %build
-%if 0%{?fedora} && 0%{?fedora} > 35
-export PKG_CONFIG_PATH="%{_libdir}/compat-ffmpeg4/pkgconfig"
-%endif
-%configure --with-qt-version=5
-%make_build V=1
+%cmake
+%cmake_build
 
 %install
-%make_install
-rm -f %{buildroot}%{_infodir}/dir
+%cmake_install
 rm -rf %{buildroot}%{_datadir}/doc
 
-desktop-file-validate %{buildroot}%{_datadir}/applications/bino.desktop
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/org.bino3d.bino.desktop
+appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/org.bino3d.bino.metainfo.xml
 
-%find_lang %{name}
-
-%post
-/sbin/install-info \
-    --entry="* bino: (bino).   3D video player" \
-    --section="Miscellaneous" \
-    %{_infodir}/%{name}.info \
-    %{_infodir}/dir 2>/dev/null || :
-
-%preun
-if [ $1 -eq 0 ]; then
-  /sbin/install-info --delete %{_infodir}/%{name}.info %{_infodir}/dir 2>/dev/null || :
-fi
-
-%files -f %{name}.lang
-%doc AUTHORS ChangeLog NEWS README doc/*
-%license COPYING
+%files
+%doc NEWS.md README.md
+%license LICENSE.md
 %{_bindir}/bino
-%{_infodir}/*
-%{_mandir}/man1/*
-%{_datadir}/applications/bino.desktop
-%{_datadir}/icons/hicolor/*/apps/*
+%{_datadir}/applications/org.bino3d.bino.desktop
+%{_metainfodir}/org.bino3d.bino.metainfo.xml
+%{_datadir}/icons/hicolor/*/apps/org.bino3d.bino.*
 
 %changelog
+* Mon Mar 25 2024 Leigh Scott <leigh123linux@gmail.com> - 2.1-1
+- Update bino to 2.1
+
 * Sat Feb 03 2024 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 1.6.8-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
